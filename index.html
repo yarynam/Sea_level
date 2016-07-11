@@ -1,0 +1,145 @@
+<!doctype html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <title>Graphic title here</title><?php /* EDIT ME */ ?>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="css/style.css"/>
+
+</head>
+
+<body class="">
+
+    <div id="main-wrapper" class="">
+        <div id="main-content" class="container">
+            <header class="row">
+                <div class="social-links col-md-12"></div>
+                <div class="col-md-12">
+
+                    <h1>Decades of High Water</h1>
+                    <div class="subtitle"> It's a well-known fact that sea level is rising worldwide. However, in some particular places during last 30 years it also decreased. Decline of sea level close to the poles, ironically, is another evidence of climate change. Why? The answer to this phenomenon is geology. </div>
+                    <div class="byline">By <a href="#">Iaryna Mykhyalyshyn</a></div>
+
+                </div>
+              </div>
+            </header>
+
+            <div class="container">
+              <div class="col-lg-12 col-md-12">
+                <h3>Two evidences of climate change</h3>
+                <div class="subtitle"> Change of the sea level worldwide </div>
+                <div class="bar_charts"></div>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-4 col-md-4">
+                  <h3>Why sea level is decreasing next to poles?</h3>
+                  <p>Thought the last decades Arctic ice was melting so intensively that it contributed not only to change of sea level, but the geological state of the corresponding land. </p>
+                  <p>Relieved of billions of tons of glacial weight, the land has risen much as a cushion regains its shape after someone gets up from a couch. The land is ascending so fast that the rising seas — a ubiquitous byproduct of global warming — cannot keep pace. As a result, the relative sea level is falling, at a rate “among the highest ever recorded,” according to a 2007 report by a panel of experts convened by Mayor Bruce Botelho of Juneau.</p>
+                </div>
+                <div class="col-lg-8 col-md-8">
+                <div class="map"></div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="container">
+            <div class="row">
+            <h3> Going underwater </h3>
+            <div class="subtitle">Increase of sea level along the USA coast </div>
+
+            <div class="col-lg-2 col-md-4 line_chart">
+              <div class="subtitle">Galveston</div>
+              <div class="galveston"></div>
+            </div>
+            <div class="col-lg-2 col-md-4 line_chart">
+              <div class="subtitle">Rockport</div>
+              <div class="rockport"></div>
+            </div>
+            <div class="col-lg-2 col-md-4 line_chart">
+              <div class="subtitle">St. Petersburg (USA)</div>
+              <div class="stPetersburg"></div>
+            </div>
+            <div class="col-lg-2 col-md-4 line_chart">
+              <div class="subtitle">Charleston</div>
+              <div class="charleston"></div>
+            </div>
+            <div class="col-lg-2 col-md-4 line_chart">
+              <div class="subtitle">Fort Pulaski</div>
+              <div class="fortPulaski"></div>
+            </div>
+            <div class="col-lg-2 col-md-4 line_chart">
+              <div class="subtitle">Cordova</div>
+              <div class="cordova"></div>
+            </div>
+            <div class="col-lg-2 col-md-4 line_chart">
+              <div class="subtitle">San Diego</div>
+              <div class="sanDiego"></div>
+            </div>
+            <div class="col-lg-2 col-md-4 line_chart">
+              <div class="subtitle">New York</div>
+              <div class="newYork chart"></div>
+            </div>
+            <div class="col-lg-2 col-md-4 line_chart">
+              <div class="subtitle">San Francisco</div>
+              <div class="sanFrancisco chart"></div>
+            </div>
+            <div class="col-lg-2 col-md-4 line_chart">
+              <div class="subtitle">Boston</div>
+              <div class="boston"></div>
+            </div>
+            <div class="col-lg-2 col-md-4 line_chart">
+              <div class="subtitle">Los Angeles</div>
+              <div class="losAngeles"></div>
+            </div>
+            <div class="col-lg-2 col-md-4 line_chart">
+              <div class="subtitle">Portland</div>
+              <div class="portland"></div>
+            </div>
+            </div>
+          </div>
+            <footer>
+                <div id="source-line">Source: <a href="http://uhslc.soest.hawaii.edu/data/?rq"> University of Hawaii</a>,   <a href="http://www.nytimes.com/2009/05/18/science/earth/18juneau.html">New York Times</a></div>
+            </footer>
+
+        </div>
+    </div>
+
+
+
+    <!-- jQuery.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <!-- D3.js -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v0.min.js"></script>
+    <script src="http://cdn.rawgit.com/gka/d3-jetpack/master/d3-jetpack.js" charset="utf-8"></script>
+    <script src="js/swoopyarrows.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.js" charset="utf-8"></script> -->
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- Our application script -->
+    <script src="js/line_charts.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/bar_charts.js"></script>
+    <!-- <script src="js/heatmap.js"></script> -->
+
+
+
+</body>
+</html>
