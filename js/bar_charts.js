@@ -1,16 +1,23 @@
 // DIMENSIONS
+const chartW = $('.main-animation').width();
+console.log(chartW);
 
-var margin = {top: 20, right: 20, bottom: 30, left: 30},
-    width = 1200 - margin.left - margin.right,
-    height = 350 - margin.top - margin.bottom;
+
+var margin = {top: 20, right: 0, bottom: 30, left: 24},
+    width = chartW - margin.left - margin.right,
+    height = chartW/1.8 - margin.top - margin.bottom;
+
+
+var tooltip = d3.select(".bar_charts").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
 
 // SCALES
 
 var x = d3.scale.ordinal().rangeRoundBands([0, width], .1);
 
 // Normal Y scale
-var y1 = d3.scale.linear()
-    .range([height, 0]);
+var y1 = d3.scale.linear().range([height, 0]);
 
 // AXES
 var xAxis = d3.svg.axis()
@@ -39,6 +46,12 @@ svg.append("g")
 svg.append("g")
       .attr("class", "y axis");
 
+
+var  text1 = d3.select('svg').append("text")
+                .attr("class", "count")
+                .attr("x", 150)
+                .attr("y", 50);
+
 var chartData;
 
 // Get the data
@@ -54,9 +67,36 @@ d3.csv("data/all_20.csv", function(error, data) {
                 .key(function(d){ return d.year; })
                 .map(data)
 
-  draw(1965);
+  draw(1994);
 
 
+});
+
+
+var projection = d3.geo.mercator()
+    .center([0, 23 ])
+    .translate([width /2, height/1.9])
+    .scale(135);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var g = svg.append("g");
+
+// load and display the World
+d3.json("data/world-110m2.json", function(error, topology) {
+
+
+
+
+g.selectAll("path")
+      .data(topojson.object(topology, topology.objects.countries)
+          .geometries)
+      .enter()
+      .append("path")
+      .attr("opacity",0)
+      .attr("class", "map")
+      .attr("d", path);
 });
 
 
@@ -96,12 +136,15 @@ function draw(year){
       .attr("width", x.rangeBand())
       .transition()
       .duration(550)
-      .attr("x", function(d) { return x(d.city); })
-      .attr("y", function(d, i) { return y1(Math.max(0, d.level_norm));})
-      .attr("height", function(d) { return Math.abs(y1(d.level_norm) - y1(0)); })
+      .attr("x", d => x(d.city))
+      .attr("y", (d, i) => y1(Math.max(0, d.level_norm)))
+      .attr("height", d => Math.abs(y1(d.level_norm) - y1(0)))
+      .attr("rx", 0)
+      .attr("ry", 0)
+      .attr("r",0)
       .style("fill", function(d) {
             if (d.level_norm < 0) {return "#66C2A5"}
-            else 	{ return "#9e0142" }
+            else  { return "#9e0142" }
         ;});
 
         bars.on("mouseover", function(d) {
@@ -121,59 +164,65 @@ function draw(year){
   // Exit
   bars.exit().remove();
 
-  var text = svg.selectAll("text.count")
-                        .data(data)
-                        .enter()
-                        .append("text")
-                        .attr("class", "count");
-
-  var textNote = text
-      .attr("x", 20)
-      .attr("y", 20)
-      .text(year);
-
-      var swoopy = swoopyArrow()
-     .angle(Math.PI/1.5)
-     .x(function(d) { return d[0]; })
-     .y(function(d) { return d[1]; });
-
-
-  svg.append('marker')
-      .attr('id', 'arrow')
-      .attr('viewBox', '-10 -10 20 20')
-      .attr('markerWidth', 15)
-      .attr('markerHeight', 15)
-      .attr('orient', 'auto')
-      .append('path')
-      .attr('d', 'M-6.75,-6.75 L 0,0 L -6.75,6.75')
-
-  d3.select('svg').append("path.arrow")
-    .attr('marker-end', 'url(#arrow)')
-    .datum([[width/1.5,height/1.1],[width/1.2 - 30,height/1.2]])
-    .attr("d", swoopy)
-
-    var text2 = svg.selectAll("text.annotation")
-                              .data(data)
-                              .enter()
-                              .append("text")
-                              .attr("class", "annotation");
-
-        var textNote2 = text2
-            .attr("x", width/2)
-            .attr("y", height/1.1)
-            .text("Exeptions of sea level increase close to North Pole");
-
-
-
+  text1.text(year);
+       
+  
+// setTimeout(function(){ 
+//   bars.transition('width')
+//     .duration(500)
+//     .attr("width", 10)
+//     .attr("height", 10);
+//   bars.transition('corners')
+//     .duration(700)
+//     .attr("rx", 50)
+//     .attr("ry", 50)
+//     .attr("x", function(d) {
+//                return (projection([d.longitude, d.latitude])[0]) - Math.sqrt(50);
+//        })
+//      .attr("y", function(d) {
+//              return projection([d.longitude, d.latitude])[1] - Math.sqrt(50);
+//      })
+//     .attr("r", 50)
+//     .attr("opacity", 0.6);
+//     d3.selectAll("path")
+//     .transition()
+//     .duration(500)
+//     .attr("opacity", 1)
+// }, 13000);
 
 
 }
 
+function animateMap() {
+      d3.selectAll(".bar").transition('width')
+      .duration(500)
+      .attr("width", 10)
+      .attr("height", 10);
+   d3.selectAll(".bar").transition('corners')
+      .duration(700)
+      .attr("rx", 50)
+      .attr("ry", 50)
+      .attr("x", function(d) {
+                 return (projection([d.longitude, d.latitude])[0]) - Math.sqrt(50);
+         })
+       .attr("y", function(d) {
+               return projection([d.longitude, d.latitude])[1] - Math.sqrt(50);
+       })
+      .attr("r", 50)
+      .attr("opacity", 0.6);
+      d3.selectAll("path")
+      .transition()
+      .duration(500)
+      .attr("opacity", 1)
+};
+
 var list = d3.range([1993],[2015]);
+var countStatus = true;
 
 for (var i = 0; i < list.length; i++) {
-  setTimeout(function(y) {
-    draw(list[y]);
-    $(".count").text(list[y])
-  }, i * 500, i); // we're passing i
+    setTimeout(function(y) {
+       if (countStatus == true) {
+         draw(list[y]);
+      }
+    }, i * 500, i); // we're passing i
 }
